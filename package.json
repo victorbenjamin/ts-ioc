@@ -4,7 +4,8 @@
   "description": "IoC to Typescript",
   "main": "index.js",
   "dependencies": {
-    "reflect-metadata": "0.1.8"
+    "reflect-metadata": "0.1.8",
+    "source-map-support": "0.4.6"
   },
   "devDependencies": {
     "chai": "3.5.0",
