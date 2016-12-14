@@ -1,0 +1,38 @@
+{
+  "name": "ts-ioc",
+  "version": "1.0.0",
+  "description": "IoC to Typescript",
+  "main": "index.js",
+  "dependencies": {
+    "mocha": "3.2.0",
+    "reflect-metadata": "0.1.8"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt": "1.0.1",
+    "grunt-contrib-clean": "1.0.0",
+    "grunt-mocha-test": "0.13.2",
+    "grunt-typescript": "0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorbenjamin/ts-ioc.git"
+  },
+  "keywords": [
+    "ioc",
+    "ts",
+    "typescript",
+    "node",
+    "aop",
+    "oo"
+  ],
+  "author": "Victor Benjamin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victorbenjamin/ts-ioc/issues"
+  },
+  "homepage": "https://github.com/victorbenjamin/ts-ioc#readme"
+}
