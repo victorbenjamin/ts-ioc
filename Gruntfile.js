@@ -9,8 +9,8 @@ module.exports = function (grunt) {
     typescript: {
 
       base: {
-        src: ['./test/**/*.ts'],
-        dest: './build-test/',
+        src: ['test/**/*.ts', 'src/**/*.ts'],
+        dest: 'build-test/',
         options: {
           module: 'commonjs',
           target: 'es5',
@@ -18,7 +18,7 @@ module.exports = function (grunt) {
           sourceMap: true,
           experimentalDecorators: true,
           emitDecoratorMetadata: true,
-          references: './typings/**/*.d.ts',
+          references: 'typings/**/*.d.ts',
         },
 
       },
@@ -27,9 +27,6 @@ module.exports = function (grunt) {
     mochaTest: {
       test: {
         src: ['build-test/**/*.js'],
-        options: {
-          reporter: 'spec',
-        },
       },
     },
 
@@ -42,6 +39,5 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['clean:test', 'typescript', 'mochaTest:test']);
 
   grunt.registerTask('default', 'test');
-
 
 };
