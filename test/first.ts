@@ -1,13 +1,32 @@
 import { assert } from 'chai';
-import { Service } from './senario1';
-import { load } from '../src/index'
+import { ServiceOneDep } from './senario1';
+import { Service } from './senario2';
+import { ServiceOneDep3 } from './senario3';
+import { load, IoCErrors } from '../src/index'
 
 describe('first test', () => {
 
-    it('test 1', () => {
+    it('should instance with no dependences', () => {
 
       const serviceInstance = load(Service);
       assert.instanceOf(serviceInstance, Service);
+    });
+
+    it('should instance with one existence dependence in the different file', () => {
+
+      const serviceInstance = load(ServiceOneDep);
+      assert.instanceOf(serviceInstance, ServiceOneDep);
+      assert.instanceOf(serviceInstance.dep1, Service);
+    });
+
+    it('should instance with one existence dependence in the same file with wrong order', () => {
+
+      try {
+        load(ServiceOneDep3);
+        assert.ok(false);
+      } catch (err) {
+        assert.equal(err.name, IoCErrors[IoCErrors.IOC_DEP_ORDER]);
+      }
     });
 
 });
