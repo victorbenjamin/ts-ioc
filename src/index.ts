@@ -12,18 +12,28 @@ class IoCError extends Error {
 
 export enum IoCErrors {
   IOC_DEP_ORDER,
+  IOC_NO_INJETABLE,
 }
 
+const injetables = {};
+
 export function injectable(target: Function) {
+  injetables[target['name']] = true;
 }
 
 export function load<T>(clazz: { new (...args): T }): T {
+  if (!injetables[clazz['name']]) {
+    throw new IoCError(IoCErrors.IOC_NO_INJETABLE);
+  }
+  
   const deps = Reflect.getMetadata('design:paramtypes', clazz);
-  const depProblem = deps.findIndex((d) => d === undefined);
+  
+  // possible order error
   const unresovableIndex = deps.findIndex((d) => d === undefined);
   if (unresovableIndex > -1) {
     throw new IoCError(IoCErrors.IOC_DEP_ORDER);
   }
+
   const instances = deps.map((dep) => load(dep));
   return new (Function.bind.apply(clazz, [null].concat(instances)))();
 }
