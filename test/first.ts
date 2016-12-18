@@ -3,7 +3,7 @@ import { ServiceOneDep } from './senario1';
 import { Service } from './senario2';
 import { ServiceOneDep3 } from './senario3';
 import { ServiceTwoDep, ServiceOneDep2 } from './senario4';
-import { load, IoCErrors } from '../src/index'
+import { load, Errors } from '../src/index'
 
 describe('first test', () => {
 
@@ -26,7 +26,8 @@ describe('first test', () => {
       load(ServiceOneDep3);
       assert.ok(false);
     } catch (err) {
-      assert.equal(err.name, IoCErrors[IoCErrors.IOC_DEP_ORDER]);
+      console.log(err.stack);
+      assert.equal(err.name, Errors[Errors.IOC_DEP_ORDER]);
     }
   });
 

@@ -1,11 +1,17 @@
 import 'source-map-support/register';
 import 'reflect-metadata';
 
+export enum Errors {
+  IOC_DEP_ORDER,
+  IOC_NO_INJETABLE,
+}
+
 class IoCError extends Error {
 
-  constructor(name: IoCErrors) {
+  constructor(name: Errors) {
     super();
-    super.name = IoCErrors[name];
+    super.name = Errors[name];
+    Error.captureStackTrace(this, IoCError);
   }
 
 }
@@ -27,7 +33,7 @@ class Injectable {
     // possible order error
     const unresovableIndex = deps.findIndex((d) => d === undefined);
     if (unresovableIndex > -1) {
-      throw new IoCError(IoCErrors.IOC_DEP_ORDER);
+      throw new IoCError(Errors.IOC_DEP_ORDER);
     }
 
     const instances = deps.map((dep) => injectables[dep['name']].instance);
@@ -35,11 +41,6 @@ class Injectable {
 
   }
 
-}
-
-export enum IoCErrors {
-  IOC_DEP_ORDER,
-  IOC_NO_INJETABLE,
 }
 
 export function injectable(target: { new (...args) }) {
@@ -52,7 +53,7 @@ export function load<T>(clazz: { new (...args): T }): T {
   if (injectable) {
     return injectable.instance;
   } else {
-    throw new IoCError(IoCErrors.IOC_NO_INJETABLE);
+    throw new IoCError(Errors.IOC_NO_INJETABLE);
   }
   //return new (Function.bind.apply(clazz, [null].concat(instances)))();
 }
